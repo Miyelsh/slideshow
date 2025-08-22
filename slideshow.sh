@@ -12,18 +12,18 @@ if [ $# -eq 0 ]; then
     fi
 elif [ $# -eq 1 ]; then
    dir="$1"
-elif [ $# -eq 2 ]; then
-   if [ $1 == "-a" ]; then
+   create_autostart="n"
+   read -t 15 -p "Create an autostart file at $HOME/.config/autostart/slideshow.desktop? (y/N)
+" create_autostart
+   if [[ $create_autostart == "y" ]]; then
       echo "[Desktop Entry]
 Type=Application
 Name=slideshow
-Exec=/bin/bash -c \"$(realpath $0) $(realpath $2)\"" > $HOME/.config/autostart/slideshow.desktop
+Exec=/bin/bash -c \"$(realpath $0) $(realpath $2)\"" > fake_dir # $HOME/.config/autostart/slideshow.desktop
    fi
-
 else
    # More than one argument: show usage help
-   echo "Usage: $0 [directory]"
-   echo "If no directory is provided, it uses the default."
+   echo "Usage: $0 [directory] -a"
    exit 1
 fi
 
